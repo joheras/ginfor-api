@@ -16,8 +16,8 @@ from googlenet.model.googlenet import GoogleNetExtractor
 FACE_DETECTOR_PATH = "{base_path}/cascades/haarcascade_frontalface_default.xml".format(
     base_path=os.path.abspath(os.path.dirname(__file__)))
 
-oe = OverfeatExtractor()
-ge = GoogleNetExtractor()
+#oe = OverfeatExtractor()
+#ge = GoogleNetExtractor()
 
 
 @csrf_exempt

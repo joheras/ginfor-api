@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 import fungi_classification.views
+import statisticalAnalysis.views
 
 urlpatterns = [
+    # URLs for statistical Analysis
+    url(r'^statisticalAnalysis/$', statisticalAnalysis.views.simple_upload),
+
+
+    # URLs for fungi classification
     url(r'^fungi_classification/predictFungiClass/$', fungi_classification.views.predictFungiClassUsingOverfeat),
     url(r'^fungi_classification/predictFungiClassUsingOverfeat/$', fungi_classification.views.predictFungiClassUsingOverfeat),
     url(r'^fungi_classification/predictFungiClassUsingOverfeatWithControl/$', fungi_classification.views.predictFungiClassUsingOverfeatWithControl),
@@ -26,3 +34,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
