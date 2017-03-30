@@ -15,6 +15,7 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 import json
 import os
+import zipfile
 
 # define the path to the face detector
 FACE_DETECTOR_PATH = "{base_path}/cascades/haarcascade_frontalface_default.xml".format(
@@ -86,6 +87,31 @@ def predictFungiClassUsingOverfeatView(request):
 
         return render(request, 'FungiClassification/simple_upload.html', json.loads(predictionJSON.content))
     return render(request, 'FungiClassification/simple_upload.html')
+
+
+
+@csrf_exempt
+def predictFungiClassUsingOverfeatViewZIP(request):
+    if request.method == 'POST':
+        zip_file = request.FILES['zip']
+        fs = FileSystemStorage()
+        extension = zip_file.name[zip_file.name.rfind("."):]
+        ts = time.time()
+        st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+        fs.save("zip-files/" + st + extension, zip_file)
+        zip_ref = zipfile.ZipFile("media/zip-files/"+ st + extension, 'r')
+        zip_ref.extractall("media/zip-files/"+ st)
+        zip_ref.close()
+        fs.delete("zip-files/" + st + extension)
+        (_,files)=fs.listdir("zip-files/"+ st)
+        print(files)
+        predictions = [("../../../media/zip-files/"+st+"/"+file,categoryOfFungiImageUsingOverfeat(_grab_image(path="media/zip-files/"+ st+"/"+file), oe)) for file in files]
+        data = {"success": True}
+        data.update({"predictions": predictions})
+        predictionJSON = JsonResponse(data)
+
+        return render(request, 'FungiClassification/zip_upload.html', json.loads(predictionJSON.content))
+    return render(request, 'FungiClassification/zip_upload.html')
 
 
 @csrf_exempt

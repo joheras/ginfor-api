@@ -29,6 +29,8 @@ urlpatterns = [
 
     url(r'^fungi_classification/predictFungiClass/examples/(?P<num>\w{0,50})$',
         fungi_classification.views.predictFungiClassUsingOverfeatViewExamples, name='examples'),
+    url(r'^fungi_classification/predictFungiClass/zip/$',
+        fungi_classification.views.predictFungiClassUsingOverfeatViewZIP),
     url(r'^fungi_classification/predictFungiClass/$', fungi_classification.views.predictFungiClassUsingOverfeatView),
     url(r'^fungi_classification/predictFungiClassUsingOverfeat/$', fungi_classification.views.predictFungiClassUsingOverfeat),
     url(r'^fungi_classification/predictFungiClassUsingOverfeatWithControl/$', fungi_classification.views.predictFungiClassUsingOverfeatWithControl),
