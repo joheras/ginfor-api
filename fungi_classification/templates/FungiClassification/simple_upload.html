@@ -19,7 +19,8 @@
   {% if success %}
     <p>Analysed image:</p>
     <img src="{{ uploaded_file_url }}"/>
-    <p>Prediction: {{ prediction }}</p>
+    <p>Prediction: {{ prediction }}</p><br/>
+    <a href="% url 'main' %}">Go back</a>
 
   {% else %}
     <form method="post" enctype="multipart/form-data">
