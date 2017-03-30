@@ -14,7 +14,7 @@ import cv2
 
 def categoryOfFungiImage(image, oe):
     # load the configuration, label encoder, and classifier
-    print("[INFO] loading model...")
+    #print("[INFO] loading model...")
     conf = Conf("/home/joheras/pythonprojects/api/cv_api/fungi_classification/overfeat/conf/fungi.json")
     le = cPickle.loads(open(conf["label_encoder_path"]).read())
     model = cPickle.loads(open(conf["classifier_path"]+ conf["model"] + ".cpickle").read())
