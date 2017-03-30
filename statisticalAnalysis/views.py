@@ -13,6 +13,7 @@ def simple_upload(request):
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         report = statisticalComparison.statisticalComparison(BASE_DIR+uploaded_file_url)
+        fs.delete(filename)
         return render(request, 'statisticalAnalysis/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url, 'report' : report
         })
