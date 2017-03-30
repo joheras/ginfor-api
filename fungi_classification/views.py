@@ -92,6 +92,7 @@ def predictFungiClassUsingOverfeatView(request):
 
 @csrf_exempt
 def predictFungiClassUsingOverfeatViewZIP(request):
+    """CURL example: curl -X POST -F zip=@images.zip 'http://193.146.250.57:8000/fungi_classification/predictFungiClass/zip/'; echo "" """
     if request.method == 'POST':
         zip_file = request.FILES['zip']
         fs = FileSystemStorage()
